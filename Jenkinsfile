@@ -14,27 +14,27 @@ pipeline {
         }
         stage('Build'){
             steps {
-                echo 'Building ${APP_NAME} version ${VERSION}...'
+                echo "Building ${APP_NAME} version ${VERSION}..."
                 bat 'dir'
             }
         }
         stage('test'){
             steps{
-                echo 'Testing ${APP_NAME}...'
+                echo "Testing ${APP_NAME}..."
             }
         }
         stage ('Deploy'){
             steps {
-                echo 'Deploying ${APP_NAME} version ${VERSION}...'
+                echo "Deploying ${APP_NAME} version ${VERSION}..."
             }
         } 
     }
   post {
     success {
-      echo 'Pipeline for ${APP_NAME} completed successfully' 
+      echo "Pipeline for ${APP_NAME} completed successfully"
     }
     failure {
-      echo 'Pipeline for ${APP_NAME} failed'
+      echo "Pipeline for ${APP_NAME} failed"
     }
   }
 }
