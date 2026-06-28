@@ -18,7 +18,11 @@ pipeline {
             steps{
                 echo 'deploying application...'
             }
-        }
+        } stage ('Notification'){
+            steps {
+                echo 'Sending notification to Team!'
+            }
+        } 
     }
   post {
     success {
