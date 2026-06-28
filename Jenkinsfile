@@ -1,36 +1,40 @@
 pipeline {
     agent any
+
+    environment {
+        APP_NAME = "jenkins-practice"
+        VERSION = "1.0.0"
+    }
     
     stages {
         stage('Pull Code'){
             steps{
-                git branch: 'main',
-                url: 'https://github.com/sachin2527/jenkins-handson'
+               echo "Pulling code from ${APP_NAME}..." 
             }
         }
         stage('Build'){
             steps {
-                echo 'Building the application...'
+                echo 'Building ${APP_NAME} version ${VERSION}...'
                 bat 'dir'
             }
         }
         stage('test'){
             steps{
-                echo 'deploying application...'
+                echo 'Testing ${APP_NAME}...'
             }
         }
-        stage ('Notification'){
+        stage ('Deploy'){
             steps {
-                echo 'Sending notification to Team!'
+                echo 'Deploying ${APP_NAME} version ${VERSION}...'
             }
         } 
     }
   post {
     success {
-      echo 'Pipeline completed successfully' 
+      echo 'Pipeline for ${APP_NAME} completed successfully' 
     }
     failure {
-      echo 'Pipeline failed'
+      echo 'Pipeline for ${APP_NAME} failed'
     }
   }
 }
