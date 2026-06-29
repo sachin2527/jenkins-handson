@@ -2,40 +2,51 @@
 pipeline {
     agent any
 
-    environment {
-        APP_NAME = "jenkins-practice"
-        VERSION = "1.0.0"
-    }
-    
+    parameters{
+        string(
+            name: 'APP_NAME',
+            defaultValue: 'jenkins-practice',
+            description: 'Enter application name'
+        )
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['dev', 'staging', 'prod'],
+            description: 'Select deployment environment'
+        )
+    booleanParam(
+        name: 'RUN_TESTS',
+        deafultValue: true,
+        description: 'Run tests ?'
+    )}
     stages {
         stage('Pull Code'){
             steps{
-               echo "Pulling code from ${APP_NAME}..." 
+               echo "Pulling code from ${params.APP_NAME}..." 
             }
         }
         stage('Build'){
             steps {
-                buildApp ("${APP_NAME}")
-                bat 'dir'
+                buildApp ("${params.APP_NAME}")
+            
             }
         }
         stage('test'){
             steps{
-                testApp ("${APP_NAME}")
+                testApp ("${params.APP_NAME}")
             }
         }
         stage ('Deploy'){
             steps {
-                echo "Deploying ${APP_NAME} version ${VERSION}..."
+                echo "Deploying ${params.APP_NAME} version ${params.ENVIRONMENT}..."
             }
         } 
     }
   post {
     success {
-      echo "Pipeline for ${APP_NAME} completed successfully"
+      echo "Pipeline for ${params.APP_NAME} completed successfully"
     }
     failure {
-      echo "Pipeline for ${APP_NAME} failed"
+      echo "Pipeline for ${params.APP_NAME} failed"
     }
   }
 }
