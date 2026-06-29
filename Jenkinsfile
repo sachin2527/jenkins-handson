@@ -32,7 +32,7 @@ pipeline {
         }
         stage('test'){
             when {
-            expression {params.RUN_TESTS == true}
+            expression {params.RUN_TESTS == true} }
             steps{
                 testApp ("${params.APP_NAME}")
             }
