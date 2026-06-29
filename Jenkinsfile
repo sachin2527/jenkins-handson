@@ -15,7 +15,7 @@ pipeline {
         )
     booleanParam(
         name: 'RUN_TESTS',
-        deafultValue: true,
+        defaultValue: true,
         description: 'Run tests ?'
     )}
     stages {
