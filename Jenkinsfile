@@ -15,13 +15,13 @@ pipeline {
         }
         stage('Build'){
             steps {
-                echo "Building ${APP_NAME} version ${VERSION}..."
+                buildApp ("${APP_NAME}")
                 bat 'dir'
             }
         }
         stage('test'){
             steps{
-                echo "Testing ${APP_NAME}..."
+                testApp ("${APP_NAME}")
             }
         }
         stage ('Deploy'){
